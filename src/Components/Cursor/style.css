@@ -1,0 +1,10 @@
+.cursor-container {
+  z-index: 100;
+  position: absolute;
+}
+
+path {
+  stroke: #000000;
+  stroke-width: 1px;
+  stroke-linejoin: round;
+}
