@@ -7,7 +7,7 @@ import { PartyContextProvider } from './contexts/party.tsx';
 
 const store = createStore({
   showCredit: false,
-  key: 'NmS87-vj-7y0_bX5lYXy',
+  key: import.meta.env.VITE_POLOTNO_KEY,
 });
 
 store.addPage();

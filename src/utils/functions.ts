@@ -1,20 +1,21 @@
-export function throttle<T extends (...args: any[]) => void>(fn: T, wait: number = 50) {
+export function throttle<T, A extends Array<unknown>>(
+  fn: (this: T, ...args: A) => void,
+  wait: number = 50,
+) {
   let lastFn: number;
   let lastTime: number;
   let inThrottle: boolean;
 
-  return function (this: any, ...args: Parameters<T>) {
-    const context = this;
-
+  return function (this: T, ...args: A) {
     if (!inThrottle) {
-      fn.apply(context, args);
+      fn.apply(this, args);
       lastTime = Date.now();
       inThrottle = true;
     } else {
       clearTimeout(lastFn);
       lastFn = setTimeout(() => {
         if (Date.now() - lastTime >= wait) {
-          fn.apply(context, args);
+          fn.apply(this, args);
           lastTime = Date.now();
         }
       }, Math.max(wait - (Date.now() - lastTime), 0));

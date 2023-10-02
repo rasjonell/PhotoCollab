@@ -33,11 +33,11 @@ export function useConnection(
 
       switch ((msgJson as BaseMsg).type) {
         case 'connected':
-          const newState = new Map<string, CursorPosition>(
-            (msgJson as ConnectedMsg).data.map((id) => [id, { x: 0, y: 0 }]),
+          setState(
+            new Map<string, CursorPosition>(
+              (msgJson as ConnectedMsg).data.map((id) => [id, { x: 0, y: 0 }]),
+            ),
           );
-
-          setState(newState);
           break;
 
         case 'peerConnected':
@@ -59,7 +59,7 @@ export function useConnection(
     return () => {
       socket.removeEventListener('message', onMessage);
     };
-  }, [socket]);
+  }, [socket, state, setState]);
 }
 
 export function useCursorUpdates(
@@ -94,46 +94,44 @@ export function useCursorUpdates(
       socket.removeEventListener('message', onMouseMoveMessage);
       document.removeEventListener('mousemove', mouseMoveListener);
     };
-  }, [socket]);
+  }, [socket, state, setState]);
 }
 
-export function useEditorUpdates(socket: PartySocket, store: StoreType): () => void {
-  let disposer: IDisposer | undefined;
+let disposer: IDisposer | undefined;
 
-  function unlisten() {
-    disposer?.();
-    disposer = undefined;
-  }
+function unlisten() {
+  disposer?.();
+  disposer = undefined;
+}
 
-  function listen(store: StoreType, socket: PartySocket) {
-    disposer = onPatch(store.pages, (patch) => {
-      socket.send(JSON.stringify(patch));
-    });
-  }
+function listen(store: StoreType, socket: PartySocket) {
+  disposer = onPatch(store.pages, (patch) => {
+    socket.send(JSON.stringify(patch));
+  });
+}
 
-  return () => {
-    useEffect(() => {
-      if (socket && store) {
-        const onMessage = (evt: WebSocketEventMap['message']) => {
-          const msg = JSON.parse(evt.data as string);
+export function useEditorUpdates(socket: PartySocket, store: StoreType): void {
+  useEffect(() => {
+    if (socket && store) {
+      const onMessage = (evt: WebSocketEventMap['message']) => {
+        const msg = JSON.parse(evt.data as string);
 
-          if ('type' in msg && 'data' in msg) return;
+        if ('type' in msg && 'data' in msg) return;
 
-          unlisten();
-          applyPatch(store.pages, msg);
-          listen(store, socket);
-        };
+        unlisten();
+        applyPatch(store.pages, msg);
+        listen(store, socket);
+      };
 
-        if (typeof disposer === 'undefined') {
-          listen(store, socket);
-        }
-
-        socket.addEventListener('message', onMessage);
-
-        return () => {
-          socket.removeEventListener('message', onMessage);
-        };
+      if (typeof disposer === 'undefined') {
+        listen(store, socket);
       }
-    }, [store, socket, disposer]);
-  };
+
+      socket.addEventListener('message', onMessage);
+
+      return () => {
+        socket.removeEventListener('message', onMessage);
+      };
+    }
+  }, [store, socket]);
 }

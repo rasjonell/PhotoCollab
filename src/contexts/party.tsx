@@ -26,13 +26,13 @@ type PartyProps = {
 export const PartyContextProvider = ({ store, children }: PropsWithChildren<PartyProps>) => {
   const socket = usePartySocket({
     room: 'home',
-    host: 'https://localhost:1999',
+    host: import.meta.env.VITE_PARTYKIT_HOST,
   });
 
   const [cursorPos, setCursorPos] = useState<Map<string, CursorPosition>>(new Map());
 
   // Photo Editor Hooks
-  useEditorUpdates(socket, store)();
+  useEditorUpdates(socket, store);
 
   // Real-Time Update Hooks
   useConnection(socket, cursorPos, setCursorPos);

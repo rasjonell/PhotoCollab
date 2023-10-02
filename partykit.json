@@ -1,4 +1,4 @@
 {
-  "name": "art-sync-party",
-  "main": "party/index.ts"
+  "main": "party/index.ts",
+  "name": "photo-collab-party"
 }
