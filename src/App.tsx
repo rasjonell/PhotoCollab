@@ -8,13 +8,16 @@ import { Cursor } from './Components/Cursor';
 import { usePartyContext } from './contexts/party';
 
 export const App = () => {
-  const { store } = usePartyContext();
+  const { store, cursorPos } = usePartyContext();
 
   if (!store) return null;
 
   return (
     <>
-      <Cursor x={100} y={100} />
+      {[...cursorPos.entries()].map(([id, { x, y }]) => (
+        <Cursor x={x} y={y} key={id} />
+      ))}
+
       <PolotnoContainer style={{ width: '100vw', height: '100vh' }}>
         <SidePanelWrap>
           <SidePanel store={store} />
