@@ -13,28 +13,29 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives"
   },
   "dependencies": {
-    "mobx": "^6.10.2",
     "import": "^0.0.6",
-    "react": "^18.2.0",
-    "polotno": "^1.14.5",
-    "react-dom": "^18.2.0",
-    "randomcolor": "^0.6.2",
-    "partysocket": "^0.0.8",
+    "mobx": "^6.10.2",
     "mobx-react-lite": "^4.0.4",
-    "mobx-state-tree": "^5.1.8"
+    "mobx-state-tree": "^5.1.8",
+    "partysocket": "^0.0.8",
+    "polotno": "^1.14.5",
+    "randomcolor": "^0.6.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.16.0"
   },
   "devDependencies": {
-    "partykit": "*",
-    "vite": "^4.4.5",
-    "eslint": "^8.45.0",
-    "typescript": "^5.0.2",
+    "@types/randomcolor": "^0.5.7",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
-    "@types/randomcolor": "^0.5.7",
-    "@vitejs/plugin-react": "^4.0.3",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "@typescript-eslint/eslint-plugin": "^6.0.0"
+    "partykit": "*",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
   }
 }

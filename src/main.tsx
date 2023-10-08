@@ -1,21 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import createStore from 'polotno/model/store';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import App from './App.tsx';
-import { PartyContextProvider } from './contexts/party.tsx';
+import Room from './routes/Room.tsx';
+import Root from './routes/Root.tsx';
+import ErrorPage from './routes/ErrorPage.tsx';
 
-const store = createStore({
-  showCredit: false,
-  key: import.meta.env.VITE_POLOTNO_KEY,
-});
-
-store.addPage();
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/app/:room',
+    element: <Room />,
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <PartyContextProvider store={store}>
-      <App />
-    </PartyContextProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>,
 );

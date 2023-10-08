@@ -20,12 +20,13 @@ type PartyContextType = {
 };
 
 type PartyProps = {
+  room: string;
   store: StoreType;
 };
 
-export const PartyContextProvider = ({ store, children }: PropsWithChildren<PartyProps>) => {
+export const PartyContextProvider = ({ store, room, children }: PropsWithChildren<PartyProps>) => {
   const socket = usePartySocket({
-    room: 'home',
+    room,
     host: import.meta.env.VITE_PARTYKIT_HOST,
   });
 

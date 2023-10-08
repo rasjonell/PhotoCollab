@@ -4,10 +4,10 @@ import { Workspace } from 'polotno/canvas/workspace';
 import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
 import { PolotnoContainer, SidePanelWrap, WorkspaceWrap } from 'polotno';
 
-import { Cursor } from './Components/Cursor';
-import { usePartyContext } from './contexts/party';
+import { Cursor } from '../components/Cursor';
+import { usePartyContext } from '../contexts/party';
 
-export const App = () => {
+const App = () => {
   const { store, cursorPos } = usePartyContext();
 
   if (!store) return null;
