@@ -13,6 +13,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.0.0",
     "import": "^0.0.6",
     "mobx": "^6.10.2",
     "mobx-react-lite": "^4.0.4",
@@ -25,6 +26,7 @@
     "react-router-dom": "^6.16.0"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.0.0",
     "@types/randomcolor": "^0.5.7",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",

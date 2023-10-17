@@ -2,6 +2,8 @@ import { SetStateAction, useEffect } from 'react';
 import { onPatch, applyPatch } from 'mobx-state-tree';
 
 import type PartySocket from 'partysocket';
+import type { IDisposer } from 'mobx-state-tree';
+import type { StoreType } from 'polotno/model/store';
 
 import { throttle } from '../utils/functions';
 
@@ -13,8 +15,6 @@ import type {
   PeerConnectedMsg,
   PeerDisconnectedMsg,
 } from './party.types';
-import { StoreType } from 'polotno/model/store';
-import { IDisposer } from 'mobx-state-tree';
 
 type State = Map<string, CursorPosition>;
 
@@ -26,7 +26,7 @@ export function useConnection(
   useEffect(() => {
     if (!socket) return;
 
-    const onMessage = (evt: WebSocketEventMap['message']) => {
+    const onMessage = (evt: WebSocketEventMap['message']): void => {
       const msgJson = JSON.parse(evt.data) as object;
 
       if (!('type' in msgJson && 'data' in msgJson)) return;
