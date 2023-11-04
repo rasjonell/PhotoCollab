@@ -13,13 +13,12 @@ const store = createStore({
 const Room = () => {
   const { room } = useParams();
   const navigate = useNavigate();
+  const { isLoading, isError, data } = useJoinRoom(room ?? '');
 
   if (!room) {
     navigate('/error');
     return null;
   }
-
-  const { isLoading, isError, data } = useJoinRoom(room);
 
   if (isLoading) {
     return (
