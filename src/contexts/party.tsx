@@ -8,12 +8,14 @@ import type { CursorPosition } from './party.types';
 import { useConnection, useCursorUpdates, useEditorUpdates } from './party.hooks';
 
 export const PartyContext = createContext<PartyContextType>({
+  room: '',
   store: undefined,
   socket: undefined,
   cursorPos: new Map(),
 });
 
 type PartyContextType = {
+  room: string;
   store?: StoreType;
   socket?: PartySocket;
   cursorPos: Map<string, CursorPosition>;
@@ -40,7 +42,9 @@ export const PartyContextProvider = ({ store, room, children }: PropsWithChildre
   useCursorUpdates(socket, cursorPos, setCursorPos);
 
   return (
-    <PartyContext.Provider value={{ socket, store, cursorPos }}>{children}</PartyContext.Provider>
+    <PartyContext.Provider value={{ socket, store, cursorPos, room }}>
+      {children}
+    </PartyContext.Provider>
   );
 };
 

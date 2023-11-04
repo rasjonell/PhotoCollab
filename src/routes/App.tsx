@@ -6,6 +6,7 @@ import { PolotnoContainer, SidePanelWrap, WorkspaceWrap } from 'polotno';
 
 import { Cursor } from '../components/Cursor';
 import { usePartyContext } from '../contexts/party';
+import { ActionButtons } from '../components/ActionButtons';
 
 const App = () => {
   const { store, cursorPos } = usePartyContext();
@@ -23,7 +24,13 @@ const App = () => {
           <SidePanel store={store} />
         </SidePanelWrap>
         <WorkspaceWrap>
-          <Toolbar store={store} downloadButtonEnabled />
+          <Toolbar
+            store={store}
+            downloadButtonEnabled
+            components={{
+              ActionControls: ActionButtons,
+            }}
+          />
           <Workspace store={store} />
           <ZoomButtons store={store} />
         </WorkspaceWrap>
