@@ -17,7 +17,13 @@ export const useJoinRoom = (room: string) =>
     queryFn: async ({ queryKey }) => {
       const [, roomId] = queryKey;
       const result = await fetch(BASE_URL + '/party/' + roomId);
-      return result.json() as Promise<{ connections: number }>;
+      const data = (await result.json()) as { connections: number };
+
+      if (data.connections > 2) {
+        return null;
+      }
+
+      return data;
     },
   });
 

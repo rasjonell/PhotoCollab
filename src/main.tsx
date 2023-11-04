@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import Room from './routes/Room.tsx';
 import Root from './routes/Root.tsx';
+import Generate from './routes/Generate.tsx';
 import ErrorPage from './routes/ErrorPage.tsx';
 
 const router = createBrowserRouter([
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <Root />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: '/app',
+    element: <Generate />,
   },
   {
     element: <Room />,
